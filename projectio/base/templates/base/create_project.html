@@ -1,0 +1,11 @@
+{% extends 'main.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+{% load static %}
+
+<div class="container-fluid">
+    {% crispy form %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<form method="POST" action="">
+    {% csrf_token %}
+    <div class="container-fluid">
+        {% csrf_token %}
+        {{ form }}
+        {% csrf_token %}
+        <input type="submit" class="btn btn-success btn-sm" value="Confirm"/>
+        <a type="button" class="btn btn-danger btn-sm" href="{% url 'delete-task' task_instance.id %}">Delete</a>
+    </div>
+</form>
+{% endblock %}

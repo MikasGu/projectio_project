@@ -1,0 +1,34 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+
+{% if page == 'login' %}
+<div class="container-fluid">
+    <form method="POST" action="">
+        {% csrf_token %}
+        <label>Username: </label>
+        <input type="text" name="username" placeholder="Enter Username"/>
+
+        <label>Password: </label>
+        <input type="password" name="password" placeholder="Enter Password"/>
+
+        <input type="submit" class="btn btn-primary btn-sm" value="Login"/>
+    </form>
+    <p>Haven't signed up yet? <a type="button" class="btn btn-primary btn-sm" href="{% url 'register' %}">Sign up</a></p>
+
+</div>
+{% else %}
+<div class="container-fluid">
+    <form method="POST" action="">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" class="btn btn-primary btn-sm" value="Register"/>
+    </form>
+    <p>Already signed up?</p>
+    <a type="button" class="btn btn-primary btn-sm" href="{% url 'login' %}">Log in</a>
+</div>
+{% endif %}
+<p class="container-fluid"><a href="{% url 'reset_password' %}">Forgot password?</a></p>
+
+{% endblock %}

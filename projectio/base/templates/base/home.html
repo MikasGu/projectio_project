@@ -1,0 +1,84 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-3">
+
+            <div class="input-group">
+                <form class="form-outline" method="get">
+                    <label class="form-label" for="form1">
+                        <h5>Search:</h5>
+                    </label>
+                    <input type="text" id="form1" name="q" class="form-control" placeholder="search projects..."/>
+                </form>
+            </div>
+            <br>
+            <h6>Browse by Company:</h6>
+            <hr/>
+            <div>
+                <a type="button" class="btn btn-sm btn-dark w-100 text-left" href="{% url 'home' %}"><u>All</u></a>
+            </div>
+            <div>
+                <a type="button" class="btn btn-sm btn-light w-100 text-left"
+                   href="{% url 'home' %}?q=amazon">Amazon</a>
+
+            </div>
+            <div>
+                <a type="button" class="btn btn-sm btn-light w-100 text-left" href="{% url 'home' %}?q=alphabet">Alphabet</a>
+            </div>
+            <div>
+                <a type="button" class="btn btn-sm btn-light w-100 text-left" href="{% url 'home' %}?q=meta">Meta</a>
+            </div>
+        </div>
+        <div class="col-9">
+            <h5 class="container-fluid">Projects:</h5>
+            <ul class="list-group">
+                {% for project in projects %}
+                <li class="list-group-item">
+                    <a type="button" class="btn btn-xl btn-light w-100 text-left" href="{% url 'project' project.pk %}">
+                        <img src="{{ project.logo.url }}">
+                        {{project.start_date}} -- {{project.name}}
+                        {{project.client}},
+                        {{project.client.company}}
+                    </a>
+                </li>
+                <hr>
+                {% endfor %}
+            </ul>
+            <nav>
+                <ul class="pagination">
+                    {% if projects.has_previous %}
+                    <li class="page-item">
+                        <a href="?page=1" class="page-link">&laquo; First</a>
+                    </li>
+                    <li class="page-item">
+                        <a href="?page={{ projects.previous_page_number }} " class="page-link">back</a>
+                    </li>
+                    {% endif %}
+                    {% for i in nums %}
+                    <li class="page-item">
+                        <a href="?page={{ forloop.counter }}" class="page-link">
+                            {{ forloop.counter }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                    {% if projects.has_next %}
+                    <li class="page-item">
+                        <a href="?page={{ projects.next_page_number }} " class="page-link">forward</a>
+                    </li>
+                    <li class="page-item">
+                        <a href="?page={{ projects.paginator.num_pages }}" class="page-link">Last &raquo;</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
